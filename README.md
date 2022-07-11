@@ -1,33 +1,31 @@
 # webfactory-pubsub
-Javascript Helferklassen für ein einfaches Publisher/Subscriber System.
+Javascript Helperclasses for a simple publisher/subscriber system.
 
-## Beispielanwendung
+## Example Usage
 
-Einen Publisher für ein Resize-Event erzeugen, der die Dimension des Window-Objects bei jedem Resize-Event an seine Subscriber benachrichtigt:
+Create a publisher, that notifies its subscribers when the window resize-event is fired. Extend the publisher-class, add a resize-handler and instantiate it. Then instantiate the subscriber and subscribe to your publisher-instance.
 ````
-import {publisher} from 'webfactory-pubsub';
- 
-const myResizePublisher = new publisher(function() {
-    
-    this.updateData = () => {
+import {Publisher, Subscriber} from 'webfactory-pubsub';
+
+class ResizePublisher extends Publisher {
+  constructor() {
+    super();
+        
+    window.addEventListener('resize', () => {
         this.data = {
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
-        }
-    }
-    
-    window.addEventlistener('resize', () => {
-        this.updateData();
+        };
         this.notifyAll();
     });
-});
-````
-Ein Object dem Resize-Publisher subscriben, dass bei jedem Resize-Event benachrichtigt wird und eine Callback-Function ausführt:
-````
-import {subscriber} from 'webfactory-pubsub';
+  }
+}
 
-const myResizeSubscriber = new subscriber('myResizeSubscriber', function(data) {
-    console.log(data.windowWidth, data.windowHeight);
-});
+const myResizePublisher = new ResizePublisher();
+
+const myResizeSubscriber = new Subscriber(function(data) {
+    console.log(data);
+},'myResizeSubscriber');
+
 myResizePublisher.subscribe(myResizeSubscriber);
 ````
