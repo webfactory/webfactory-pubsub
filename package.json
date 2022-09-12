@@ -1,7 +1,8 @@
 {
   "name": "webfactory-pubsub",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Javascript helper classes for a simple pub/sub system",
   "repository": "git@github.com:webfactory/webfactory-pubsub.git",
-  "author": "Stefan Hilger <sh@webfactory.de>"
+  "author": "Stefan Hilger <sh@webfactory.de>",
+  "license": "MIT"
 }
